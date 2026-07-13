@@ -4,6 +4,7 @@ import Header from './components/Header.jsx'
 import HomePage from './components/HomePage.jsx'
 import LabView from './components/LabView.jsx'
 import ResourcesPage from './components/ResourcesPage.jsx'
+import PrereqsPage from './components/PrereqsPage.jsx'
 import LoginPage from './components/LoginPage.jsx'
 import { isAuthenticated } from './auth.js'
 
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/lab/:labId" element={<LabView />} />
         <Route path="/resources" element={<ResourcesPage />} />
+        <Route path="/prerequisites" element={<PrereqsPage />} />
       </Routes>
     </BrowserRouter>
   )

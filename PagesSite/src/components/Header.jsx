@@ -4,6 +4,7 @@ export default function Header() {
   const location = useLocation()
   const isHome = location.pathname === '/'
   const isResources = location.pathname === '/resources'
+  const isPrereqs = location.pathname === '/prerequisites'
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-ibm-border h-12 flex items-center px-6 gap-8">
@@ -28,6 +29,16 @@ export default function Header() {
           }`}
         >
           Bobathon Guide
+        </Link>
+        <Link
+          to="/prerequisites"
+          className={`px-3 py-3 text-sm font-medium border-b-2 transition-colors ${
+            isPrereqs
+              ? 'border-ibm-blue text-ibm-blue'
+              : 'border-transparent text-gray-600 hover:text-gray-900'
+          }`}
+        >
+          Prerequisites
         </Link>
         <Link
           to="/resources"
