@@ -1,0 +1,964 @@
+<?xml version='1.0'?>
+<Schema name = "INTER_Schema"
+		xmlns = "urn:schemas-microsoft-com:xml-data"
+		xmlns:dt = "urn:schemas-microsoft-com:datatypes"
+		xmlns:xsd = "http://www.w3.org/1999/XMLSchema">
+		
+		
+<!-- Types, Values, and Variables -->
+<!-- ============================ -->
+
+<AttributeType 	name 		= "PrimitiveTypeAttr"
+			 	dt:type 	= "enumeration"		
+				dt:values 	= "void byte short int long char float double boolean String CblFormattedDecimal CblString CblFormattedString CblDecimal CblFloat CblDouble CblArray CblIndex CblPointer CblArrayIterator CblRenames"
+				required 	= "yes"/>				
+				
+<!-- represents Literal  -->
+<ElementType	name		= "Literal" content="textOnly" />
+
+<!-- represents the number of cells of an array, (equivalent to occurs value)  -->
+<ElementType	name		= "ArrayCells" content="textOnly" />
+
+<!-- represents the size of the record in bytes  -->
+<!-- We don't need this anymore -->
+<!-- ElementType	name		= "FullRecordSize" content="textOnly" / -->
+
+<!-- represents Name -->
+<AttributeType 	name 		= "FigurativeConstAttr"
+			 	dt:type 	= "enumeration"		
+				dt:values 	= "None SPACE ZERO ALL CblDecimal CblString  CblConstDecimal CblConstString CblRecord CblConstDouble CblFormattedDecimal CblFormattedString CblArray CblIndex CblPointer CblArrayIterator CblRenames"
+				required 	= "no"/>				
+
+
+<ElementType	name		= "Name" content="textOnly" >
+	<attribute  type = "FigurativeConstAttr" />
+</ElementType>
+
+<ElementType	name		= "Thru" content="textOnly" />	
+
+<ElementType	name		= "Identifier" content="textOnly" />
+
+<ElementType	name		= "ClassOrInterfaceName" content="textOnly" />
+
+<AttributeType 	name 		= "ModifierAttr"
+			 	dt:type 	= "enumeration"		
+				dt:values 	= "public protected private static abstract final native synchronized transient 
+				               volatile threadsafe const "
+				required 	= "yes"/>				
+				
+<!-- represents Modifier -->
+<ElementType	name		= "Modifier" content="empty">
+	<attribute type = "ModifierAttr" />
+</ElementType>
+
+<!-- represents type--> 
+<ElementType	name		= "PrimitiveType" content="empty">
+	<attribute  type = "PrimitiveTypeAttr" />
+</ElementType>
+
+<ElementType	name		= "ReferenceType" order = "one"  content="eltOnly" >
+	<element type = "Name" 		/> <!-- class_or_interface type -->
+	<element type = "ArrayType" />
+</ElementType>
+
+<ElementType	name		= "Dims" content="empty"/>
+
+<ElementType	name		= "ArrayType" order = "one"  content="eltOnly" >
+	<group>
+		<element type = "Name" 		/>
+		<element type = "Dims" minOccurs = "1" maxOccurs = "*" />
+	</group>
+	<group>
+		<element type = "PrimitiveType" />
+		<element type = "Dims" minOccurs = "1" maxOccurs = "*" />
+	</group>
+</ElementType>
+
+
+<!-- represents Type. may be: PrimitiveType ReferenceType  -->
+<ElementType	name		= "Type" order = "one"  content="eltOnly">
+	<element type = "PrimitiveType" />
+	<element type = "ReferenceType" />
+</ElementType>
+
+<!-- Class Declaration -->
+<!-- ================= -->
+
+<!-- We don't need this anymore -->
+<!--AttributeType 	name 		= "CblVarLength"
+			 	dt:type 	= "number"		
+				required 	= "no"/-->
+
+<!-- represents Super: "EXTENDS" ClassType -->
+<ElementType	name		= "Super">
+	<element type = "ClassOrInterfaceName" minOccurs="1" maxOccurs="1" />
+</ElementType>
+
+<!-- represents ClassBodyDeclaration: ClassMemberDeclaration | StaticInitializer | ConstructorDeclaration | Block -->
+<ElementType	name		= "ClassBodyDeclaration" order = "many" content="eltOnly" >
+	<element type = "ClassDeclaration" 		minOccurs="0" maxOccurs="*" />
+	<element type = "FieldDeclaration" 		minOccurs="0" maxOccurs="*" />
+	<element type = "MethodDeclaration" 	minOccurs="0" maxOccurs="*" />
+	<element type = "Block" 	minOccurs="0" maxOccurs="*" 	/>
+	<element type = "ConstructorDeclaration" 	minOccurs="0" maxOccurs="*" />
+</ElementType>
+
+<!-- Field Decleretions -->
+<!-- represents FieldDeclaration:  Modifiers(optional) Type VariableDeclarators Name(";")-->
+<ElementType	name		= "FieldDeclaration" content="eltOnly" >
+	<!-- attribute type = "CblVarLength" / -->
+	<element type = "Positions"	minOccurs="1" maxOccurs="1"		/>
+	<element type = "Modifier" minOccurs="0" maxOccurs="*" />
+	<element type = "Type" 									/>
+	<element type = "VariableDeclarator" minOccurs="1" maxOccurs="*" 	/>
+</ElementType>
+
+<AttributeType 	name 		= "IsNeedToBeDeleted"
+			 	dt:type 	= "boolean"		
+				required 	= "no"/>				
+
+<ElementType	name		= "VariableDeclarator" order="seq" content="eltOnly" >
+	<attribute type = "IsNeedToBeDeleted"									/>
+	<element type = "Name" minOccurs="1" maxOccurs="1"					/>
+	<element type = "ID"	minOccurs="1" maxOccurs="1"/>
+	<element type = "StAdd"	minOccurs="1" maxOccurs="1"/>
+	<element type = "EndAdd"	minOccurs="1" maxOccurs="1"/>
+	<element type = "Redefines" 	minOccurs="0" maxOccurs="1"	/>
+	<element type = "VariableInitializer" minOccurs="0" maxOccurs="1"	/>
+</ElementType>
+
+<ElementType	name = "ID" content="textOnly" />
+<ElementType	name = "StAdd" content="textOnly" />
+<ElementType	name = "EndAdd" content="textOnly" />
+
+
+<!-- represents VariableInitializer:  expression or ArrayInitializer -->
+<ElementType	name		= "VariableInitializer" order = "one" content="eltOnly" >
+	<element type = "Expression" 		/>
+	<element type = "ArrayInitializer" 	/>
+</ElementType>
+
+<AttributeType 	name 		= "IsInterface"
+			 	dt:type 	= "boolean"		
+				required 	= "no"/>				
+
+<AttributeType 	name 		= "IsProgram"
+			 	dt:type 	= "boolean"		
+				required 	= "no"/>				
+
+<!-- represents ClassDeclaration: Modifiers(optional) "CLASS" Name(IDENTIFIER) Super(optional) Interfaces ClassBody-->
+<ElementType	name		= "ClassDeclaration" content="eltOnly" >
+	<attribute type = "IsInterface" default="0"			 	/>
+	<attribute type = "IsProgram" default="0"			 	/>
+	<attribute type = "IsNeedToBeDeleted"									/>
+	<element type = "Name" 			minOccurs="1" maxOccurs="1"	/>
+	<element type = "ID" 			minOccurs="0" maxOccurs="1"	/>
+	<element type = "StAdd" 			minOccurs="0" maxOccurs="1"	/>
+	<element type = "EndAdd" 			minOccurs="0" maxOccurs="1"	/>
+	<element type = "ArrayCells" 			minOccurs="0" maxOccurs="1"	/>
+	<element type = "Positions"		minOccurs="0" maxOccurs="1"	/>
+	<element type = "Modifier"		minOccurs="0" maxOccurs="*" />
+	<!-- element type = "FullRecordSize" 			minOccurs="0" maxOccurs="1"	/ -->
+	<element type = "Super"     	minOccurs="0" maxOccurs="1"	/>
+	<element type = "ClassOrInterfaceName"	minOccurs="0" maxOccurs="*"	/>
+	<element type = "ClassBodyDeclaration" 	minOccurs="0" maxOccurs="1"	/>
+	<element type = "Redefines" 	minOccurs="0" maxOccurs="1"	/>
+</ElementType>
+
+<!-- represent Redefines -->
+<ElementType	name		= "Redefines" content="eltOnly" >
+	<element type = "Name" minOccurs="1" maxOccurs="1" />
+</ElementType>
+
+<!-- Method Declerations -->
+<!-- =================== -->
+
+<!-- represents MethodDeclaration: MethodHeader + MethodBody -->
+<ElementType	name		= "MethodDeclaration" content="eltOnly">
+	<element type = "MethodHeader" 		/>
+	<element type = "Block" 			/>
+</ElementType>
+
+<!-- added by RepositoryTeam from AlphaTech -->
+<AttributeType name="FallThroughType" dt:type="int" required="no"/>
+<!-- <ElementType name="FallThrough" content="empty"> -->
+<!--	<attribute type="FallThroughType"/> -->
+<!-- </ElementType> -->
+<!-- end of added -->
+
+<AttributeType 	name 		= "ID"
+			 	dt:type 	= "number"
+				required 	= "yes"/>
+
+
+
+<!-- represents MethodHeader: Modifiers + Type + MethodDeclarator + Throws (COULD WRITE IT AS 1 ELEMENT WITH THE OPTION FOR TYPE OR VOID - HILA)-->
+<ElementType	name		= "MethodHeader" order = "seq" content="eltOnly" >
+	<attribute type="FallThroughType"/>
+    <attribute type="ID"/>
+	<element type = "Positions"			minOccurs="0" maxOccurs="1"	/>	
+	<element type = "Modifier" 			minOccurs="0" maxOccurs="*" />
+	<element type = "Type" 				minOccurs="1" maxOccurs="1"	/>
+	<element type = "Name"				minOccurs="1" maxOccurs="1"	/>
+	<element type = "FormalParameter"	minOccurs="0" maxOccurs="*" />
+	<element type = "Throws" 			minOccurs="0" maxOccurs="1"	/>
+	<element type = "PostDom" 			minOccurs="0" maxOccurs="1"	/>
+	<element type = "PT_Index" 			minOccurs="0" maxOccurs="*"	/>
+</ElementType>
+
+<AttributeType 	name 		= "IsFinal"
+			 	dt:type 	= "boolean"
+				required 	= "no"/>
+
+<!-- represents FormalParameter: Optional-Name ("FINAL") Type VariableDeclaratorId -->
+<ElementType	name		= "FormalParameter" order = "seq" content="eltOnly">
+	<attribute type = "IsFinal" default="0"				/>
+	<element type = "Type"		minOccurs="1" maxOccurs="1"	/>
+	<element type = "Name"	minOccurs="1" maxOccurs="1"	/>
+</ElementType>
+
+<!-- represents Throws: "THROWS" ClassTypeList -->
+<ElementType	name		= "Throws" >
+	<element type = "ClassOrInterfaceName" minOccurs="1" maxOccurs="*"	/>
+</ElementType>
+
+<ElementType	name		= "PT_Index" content="textOnly" >
+</ElementType>
+
+<ElementType 	name 		= "StopRun"	 content="textOnly"	> 
+</ElementType>
+
+<!-- Constructor Declarations -->
+<!-- ======================== -->
+
+<!-- represents ConstructorDeclaration: Modifiers(optional) ConstructorDeclarator Throws(optional) ConstructorBody  -->
+<ElementType	name		= "ConstructorDeclaration" order = "seq" content="eltOnly" >
+	<element type = "Modifier" minOccurs="0" maxOccurs="*"	/>
+	<element type = "ConstructorDeclarator"					/>
+	<element type = "Throws" 	minOccurs="0" maxOccurs="1"	/>
+	<element type = "ConstructorBody" 						/>
+</ElementType>
+
+<!-- represents ConstructorDeclarator: Name "(" FormalParameterList ")"  -->
+<ElementType	name		= "ConstructorDeclarator" order = "seq" content="eltOnly" >
+	<element type = "Name"		 			/>
+	<element type = "FormalParameter" minOccurs="0" maxOccurs="*" 	/>
+</ElementType>
+
+<AttributeType 	name 		= "IsThis"
+			 	dt:type 	= "enumeration"	
+				dt:values 	= "None THIS SUPER"
+				required 	= "yes"/>
+
+<!-- represents ConstructorBody: ConstructorBodyInvocationStates or ConstructorBodyInvocation or ConstructorBodyStates or ConstructorBodyEmpty -->
+<!-- if IsThis==1 or IsThis==2 then Expression required -->
+<ElementType	name		= "ConstructorBody" order = "one" content="eltOnly" >
+	<attribute type = "IsThis"									/>
+	<element type = "Primary"		minOccurs="0" maxOccurs="1"	/>
+	<element type = "Expression"	minOccurs="0" maxOccurs="*"	/> <!-- argument-list -->
+	<element type = "Statement"		minOccurs="0" maxOccurs="*"	/> <!-- block-statements -->
+	<element type = "Block"			minOccurs="0" maxOccurs="*"	/> <!-- block-statements -->
+	<element type = "ClassDeclaration"		minOccurs="0" maxOccurs="*"	/>
+</ElementType>
+
+
+<!-- Packages -->
+<!-- ======== -->
+
+<!-- represents PackageDeclaration: "PACKAGE" Name ";" -->
+<ElementType	name		= "PackageDeclaration" content="eltOnly" >
+	<element type = "Name"	minOccurs="1" maxOccurs="1"	/>
+</ElementType>
+
+<AttributeType 	name 		= "IsSingle"
+			 	dt:type 	= "boolean"
+				required 	= "no"/>
+
+<ElementType	name		= "ImportDeclaration" content="eltOnly" >
+	<attribute type = "IsSingle"						/>
+	<element type = "Name"	minOccurs="1" maxOccurs="1"	/>
+</ElementType>
+
+<!-- represents CompilationUnit: PackageDeclaration(optional) ImportDeclarations(optional) TypeDeclarations(optional)-->
+<ElementType	name		= "CompilationUnit" content="eltOnly" >
+	<element type = "PackageDeclaration" minOccurs="0" maxOccurs="1"	/>
+	<element type = "ImportDeclaration" minOccurs="0" maxOccurs="*"	/>
+	<element type = "ClassDeclaration"   minOccurs="0" maxOccurs="1"	/>
+</ElementType>
+
+
+
+
+<!-- Arrays -->
+<!-- ====== -->
+
+<!-- represents of ArrayInitializer: "{" VariableInitializers(optional) (COMMA-optional)  "}" -->
+<ElementType	name = "ArrayInitializer" content="eltOnly" >
+	<element type = "VariableInitializer" minOccurs="0" maxOccurs="*"	/>
+</ElementType>
+
+
+<!-- Blocks and Statements -->
+<!-- ===================== -->
+
+<!-- represents of Block: "{" BlockStatements(optional) "}" -->
+<ElementType	name		= "Block" order="seq" content="eltOnly" >
+	<element type = "ClassDeclaration"	minOccurs="0" maxOccurs="*"	/>
+	<element type = "Statement"	minOccurs="0" maxOccurs="*"	/>
+	<element type = "Block"	minOccurs="0" maxOccurs="*"	/>
+</ElementType>
+
+<!-- represents of LocalVariableDeclaration: "FINAL"(-optional) Type ";" -->
+<ElementType	name		= "LocalVariableDeclarationStatement" content="eltOnly" >
+	<attribute type = "IsFinal" 					 	/>
+	<element type = "Type"								/>
+	<element type = "VariableDeclarator" minOccurs="1" maxOccurs="*" 	/>
+</ElementType>
+
+<AttributeType 	name 		= "IsSpecialStatement"
+			 	dt:type 	= "boolean"		
+				required 	= "no"/>
+				
+<AttributeType 	name 		= "SCSTypeAttr"
+			 	dt:type 	= "enumeration"		
+				dt:values 	= "NONE GoTo"
+				required 	= "no"/>								
+
+<AttributeType 	name 		= "PerfThroughIndex"
+			 	dt:type 	= "number"		
+				required 	= "no"/>
+
+
+<!-- represents of Statement: StatementWithoutTrailingSubstatement or LabeledStatement or IfThenStatement or IfThenElseStatement or WhileStatement or ForStatement -->
+<ElementType name = "Statement" order="seq" content="eltOnly"	>
+	<attribute type = "IsNeedToBeDeleted"									/>
+	<element type = "Positions"	minOccurs="0" maxOccurs="1"		/>
+	<group order="one">
+		<element type = "LabeledStatement"		/>
+		<element type = "IfStatement"			/>
+		<element type = "WhileStatement"		/>
+		<element type = "ForStatement"			/>
+		<element type = "LocalVariableDeclarationStatement"	/>
+		<element type = "Block"					/>
+		<element type = "EmptyStatement"		/>
+		<element type = "ExpressionStatement"	/>
+		<element type = "SwitchStatement"		/>
+		<element type = "DoStatement"			/>
+		<element type = "BreakStatement"		/>
+		<element type = "ContinueStatement"		/>
+		<element type = "ReturnStatement"		/>
+		<element type = "SynchronizedStatement"	/>
+		<element type = "ThrowStatement"		/>
+		<element type = "TryStatement"			/>
+
+		<!-- the following statements were not originaly in the schema, & added for cobol : -->
+		<element type = "DisplayStatement"		/>
+		<element type = "SpecialCobolStatement"	/>
+		<element type = "SpecialExitStatement"	/>
+		<element type = "SpecialCallStatement"	/>
+		<element type = "ExceptionStatement"		/>
+	</group>
+</ElementType>
+
+<!-- represents of Positions: list of "Position"s  -->
+<ElementType	name		= "Positions"  content="eltOnly" >
+	<element type = "Position" minOccurs="1" maxOccurs="*" />
+</ElementType>
+
+<!-- represents of PostDom: list of "Par"s (paragraph index) -->
+<ElementType	name		= "PostDom"  content="eltOnly" >
+	<element type = "Par" minOccurs="1" maxOccurs="*" />
+</ElementType>
+
+<ElementType	name		= "Par" content="textOnly" />
+
+
+<!-- represents of Position: <StartRow><EndRow><StartColumn><EndColumn>  -->
+<ElementType	name		= "Position" order="seq" content="eltOnly" >
+	<element type = "StartRow"		minOccurs="1" maxOccurs="1" />
+	<element type = "EndRow"		minOccurs="1" maxOccurs="1" />
+	<element type = "StartColumn"	minOccurs="1" maxOccurs="1" />
+	<element type = "EndColumn"		minOccurs="1" maxOccurs="1" />
+	<element type = "Name"			minOccurs="0" maxOccurs="1" />
+</ElementType>
+
+<!-- represents of Position Items: <StartRow><EndRow><StartColumn><EndColumn>  -->
+<ElementType	name		= "StartRow" content="textOnly" />
+<ElementType	name		= "EndRow" content="textOnly" />
+<ElementType	name		= "StartColumn" content="textOnly" />
+<ElementType	name		= "EndColumn" content="textOnly" />
+
+<!-- represents of EmptyStatement -->
+<ElementType	name		= "EmptyStatement" content="empty" />
+
+<!-- represents of LabeledStatement: Name(IDENTIFIER) ":"(-COLON) Statement-->
+<ElementType	name		= "LabeledStatement" order="one" content="eltOnly" >
+	<group order="seq">
+		<element type = "Name"	minOccurs="1" maxOccurs="1" />
+		<element type = "Statement"	minOccurs="1" maxOccurs="1"/>
+	</group>
+	<group order="seq">
+		<element type = "Name"	minOccurs="1" maxOccurs="1" />
+		<element type = "Block"	minOccurs="1" maxOccurs="1"/>
+	</group>
+</ElementType>
+
+
+<!-- represents of StatementExpression: Assignment or PreincrementExpression or PredecrementExpression or PostincrementExpression or PostdecrementExpression  or-->
+<!--  								    MethodInvocation or ClassInstanceCreationExpression -->
+<ElementType	name		= "ExpressionStatement" order="one" content="eltOnly" >
+	<element type = "Assignment"						/>
+	<element type = "PreincrementExpression"			/>
+	<element type = "PredecrementExpression"			/>
+	<element type = "PostincrementExpression"			/>
+	<element type = "PostdecrementExpression"			/>
+	<element type = "MethodInvocation"					/>
+	<element type = "ClassInstanceCreationExpression"	/>
+</ElementType>
+
+<!-- represents of IfStatement: "IF (" Expression ")" Statement "ELSE" Statement -->
+<ElementType	name		= "IfStatement" order="seq" content="eltOnly" >
+	<element type = "Expression" minOccurs="1" maxOccurs="1"		/>
+	<element type = "ThenStatements" minOccurs="1" maxOccurs="1"	/>
+	<element type = "ElseStatements" minOccurs="0" maxOccurs="1"	/>
+</ElementType>
+<!-- represents an statement that may have exceptions -->
+<ElementType	name		= "ExceptionStatement" order="seq" content="eltOnly" >
+	<group order="one">
+        	<element type = "Statement" minOccurs="1" maxOccurs="1"		/>
+        	<element type = "Block" minOccurs="1" maxOccurs="1"		/>
+        </group>
+	<element type = "ThenStatements" minOccurs="0" maxOccurs="1"	/>
+	<element type = "ElseStatements" minOccurs="0" maxOccurs="1"	/>
+</ElementType>
+
+
+<!-- represents of ThenStatements: list of Statements -->
+<ElementType	name		= "ThenStatements" order="one" content="eltOnly" >
+	<element type = "Statement" minOccurs="1" maxOccurs="1"   />
+	<element type = "Block" minOccurs="1" maxOccurs="1"   />
+</ElementType>
+
+<!-- represents of ElseStatements: list of Statements -->
+<ElementType	name = "ElseStatements" order="one" content="eltOnly" >
+	<element type = "Statement" minOccurs="1" maxOccurs="1"   />
+	<element type = "Block" minOccurs="1" maxOccurs="1"   />
+</ElementType>
+
+<!-- represents of SwitchStatement: "SWITCH (" Expression ")" SwitchBlock -->
+<ElementType	name		= "SwitchStatement" content="eltOnly" >
+	<element type = "Expression" minOccurs="1" maxOccurs="1" />
+	<element type = "SwitchBlock" minOccurs="1" maxOccurs="1" />
+</ElementType>
+
+<!-- represents of SwitchBlock: "{" SwitchBlockStatementGroups (optional) SwitchLabels (optional) "}" -->
+<ElementType	name		= "SwitchBlock" content="eltOnly" >
+	<element type = "SwitchBlockStatementGroup" minOccurs="1" maxOccurs="*"	/>
+</ElementType>
+
+<!-- represents of SwitchBlockStatementGroup: SwitchLabels BlockStatements -->
+<ElementType	name		= "SwitchBlockStatementGroup" content="eltOnly" >
+	<element type = "SwitchLabel" minOccurs="1" maxOccurs="*"	/>
+	<element type = "Block" minOccurs="1" maxOccurs="*"	/>
+</ElementType>
+
+<!-- represents of SwitchLabel: "CASE" ConstantExpression ":", or "DEFAULT:" if this tag is empty (no "Expression") -->
+<ElementType	name = "SwitchLabel" content="eltOnly" >
+	<element	type = "Expression"	minOccurs="0" maxOccurs="1" />
+</ElementType>
+
+<!-- represents of WhileStatement: "WHILE (" Expression ")" Statement -->
+<ElementType	name		= "WhileStatement" order="one" content="eltOnly" >
+	<group order="seq">
+		<element type = "Expression" minOccurs="1" maxOccurs="1"	/>
+		<element type = "Statement"	minOccurs="1" maxOccurs="1"		/>
+	</group>
+	<group order="seq">
+		<element type = "Expression" minOccurs="1" maxOccurs="1"	/>
+		<element type = "Block"		minOccurs="1" maxOccurs="1"		/>
+	</group>
+</ElementType>
+
+<!-- represents of DoStatement: "DO" Statement "WHILE (" Expression ");" -->
+<ElementType	name		= "DoStatement" order="one" content="eltOnly"	>
+	<group order="seq">
+		<element type = "Expression" minOccurs="1" maxOccurs="1"	/>
+		<element type = "Statement"	minOccurs="1" maxOccurs="1"		/>
+	</group>
+	<group order="seq">
+		<element type = "Expression" minOccurs="1" maxOccurs="1"	/>
+		<element type = "Block"		minOccurs="1" maxOccurs="1"		/>
+	</group>
+</ElementType>
+
+<!-- represents of ForStatement: "FOR (") ForInit(optional) ";" Expression(optional) ";" ForUpdate(optional) ")" Statement -->
+<ElementType	name		= "ForStatement" order="one" content="eltOnly" >
+	<group order="seq">
+		<element type = "ForInit" minOccurs="0" maxOccurs="1"		/>
+		<element type = "Expression" minOccurs="0" maxOccurs="1"	/>
+		<element type = "ForUpdate" minOccurs="0" maxOccurs="1"		/>
+		<element type = "Statement"	minOccurs="1" maxOccurs="1"		/>
+	</group>
+	<group order="seq">
+		<element type = "ForInit" minOccurs="0" maxOccurs="1"		/>
+		<element type = "Expression" minOccurs="0" maxOccurs="1"	/>
+		<element type = "ForUpdate" minOccurs="0" maxOccurs="1"		/>
+		<element type = "Block"	minOccurs="1" maxOccurs="1"		/>
+	</group>
+</ElementType>
+
+<!-- represents of DisplayStatement:  -->
+<ElementType	name		= "DisplayStatement" order="one" content="eltOnly" >
+	<attribute type = "IsSpecialStatement" default="1"	/>
+	<element type = "Name" minOccurs="1" maxOccurs="*"	/>
+</ElementType>
+
+<!-- represents of SpecialCobolStatement:  -->
+<!-- the SpecialCobolStatement has 2 lists of names: ReadableNames, WriteableNames & MethodInvocation of the Java method  -->
+<ElementType	name		= "SpecialCobolStatement" content="eltOnly" >
+	<attribute type = "IsSpecialStatement" default="1"	/>
+	<attribute type = "SCSTypeAttr"						/>
+	<element type = "SetNames" minOccurs="0" maxOccurs="1"	/>
+	<element type = "UseNames" minOccurs="0" maxOccurs="1"	/>
+	<!--element type = "SetIds" minOccurs="0" maxOccurs="1"	/-->
+	<!--element type = "UseIds" minOccurs="0" maxOccurs="1"	/-->
+	<element type = "MethodInvocation" minOccurs="0" maxOccurs="1"	/>
+	<element type = "PT_Index" minOccurs="0" maxOccurs="*"	/>
+</ElementType>
+
+<!-- represents of Names: list of "Name"s  -->
+<ElementType	name		= "Names"  content="eltOnly" >
+	<element type = "Name" minOccurs="0" maxOccurs="*" />
+</ElementType>
+
+<!-- represents of SetNames: list of "Name"s  -->
+<ElementType	name		= "SetNames"  content="eltOnly" >
+	<element type = "Name" minOccurs="0" maxOccurs="*" />
+	<element type = "ID" minOccurs="0" maxOccurs="*" />
+</ElementType>
+
+<!-- represents of UseNames: list of "Name"s  -->
+<ElementType	name		= "UseNames"  content="eltOnly" >
+	<element type = "Name" minOccurs="0" maxOccurs="*" />
+	<element type = "ID" minOccurs="0" maxOccurs="*" />
+</ElementType>
+
+
+<!-- represents of SetIds: list of "ID"s  -->
+<!--ElementType	name		= "SetIds"  content="eltOnly" >
+	<element type = "ID" minOccurs="0" maxOccurs="*" />
+</ElementType-->
+
+<!-- represents of UseIds: list of "ID"s  -->
+<!-- ElementType	name		= "UseIds"  content="eltOnly" >
+	<element type = "ID" minOccurs="0" maxOccurs="*" />
+</ElementType -->
+
+
+<AttributeType 	name 		= "TypeOfExitAttr"
+			 	dt:type 	= "enumeration"		
+				dt:values 	= "exit-program stop-run goback"
+				required 	= "yes"/>				
+
+<!-- represents of SpecialExitStatement:  -->
+<!-- the SpecialExitStatement represent an exit statement. has 1 attribute that indicate type of exit  -->
+<ElementType	name		= "SpecialExitStatement" content="textOnly" >
+	<attribute type = "TypeOfExitAttr" />
+</ElementType>
+
+<AttributeType 	name 		= "TypeOfCallAttr"
+			 	dt:type 	= "enumeration"		
+				dt:values 	= "call xctl link"
+				required 	= "yes"/>				
+
+<!-- represents of SpecialCallStatement:  -->
+<!-- the SpecialCallStatement represent a call statement. has 1 attribute that indicate type of call  -->
+<!-- also has the name of called program & optional Names for the parameters						  -->
+<ElementType	name		= "SpecialCallStatement" content="eltOnly" >
+	<attribute type = "TypeOfCallAttr" />
+	<element type = "Name"	/>
+	<element type = "Names"	/>
+</ElementType>
+
+<!-- represents of ForInit: StatementExpressionList or LocalVariableDeclaration -->
+<ElementType	name		= "ForInit" order="one" content="eltOnly" >
+	<element type = "ExpressionStatement" minOccurs="1" maxOccurs="*"	/>
+	<element type = "EmptyStatement" minOccurs="1" maxOccurs="1"	/>
+	<element type = "LocalVariableDeclarationStatement"	minOccurs="1" maxOccurs="1"/>
+</ElementType>
+
+<!-- represents of ForUpdate: StatementExpressionList or LocalVariableDeclaration -->
+<ElementType	name		= "ForUpdate" content="eltOnly" >
+	<element type = "ExpressionStatement" minOccurs="0" maxOccurs="*"	/>
+</ElementType>
+
+<!-- represents of BreakStatement:  "BREAK" Name(IDENTIFIER-optional) ";" -->
+<ElementType	name		= "BreakStatement" content="eltOnly" >
+	<element type = "Name" minOccurs="0" maxOccurs="1"	/>
+</ElementType>
+
+<!-- represents of ContinueStatement:  "CONTINUE" Name(IDENTIFIER-optional) ";" -->
+<ElementType	name		= "ContinueStatement" content="eltOnly" >
+	<element type = "Name" minOccurs="0" maxOccurs="1"	/>
+</ElementType>
+
+<!-- represents of ReturnStatement:  "RETURN" Expression(optional) ";" -->
+<ElementType	name		= "ReturnStatement" content="eltOnly" >
+	<attribute type = "IsSpecialStatement" default="0"			/>
+	<element type = "Expression" minOccurs="0" maxOccurs="1"	/>
+</ElementType>
+
+<!-- represents of ThrowStatement:  "THROW" Expression ";" -->
+<ElementType	name		= "ThrowStatement" content="eltOnly" >
+	<element type = "Expression" minOccurs="1" maxOccurs="1"	/>
+</ElementType>
+
+<!-- represents of SynchronizedStatement:  "SYNCHRONIZED (" Expression ")" Block -->
+<ElementType	name		= "SynchronizedStatement" content="eltOnly" >
+	<element type = "Expression" minOccurs="1" maxOccurs="1"	/>
+	<element type = "Block"	minOccurs="1" maxOccurs="1"		/>
+</ElementType>
+
+<!-- represents of TryStatement:  "TRY" Block Catches OR: "TRY" Block Catches(optional) Finally -->
+<ElementType	name		= "TryStatement" order="one" content="eltOnly" >
+	<group order="seq">
+		<element type = "Block"	  		minOccurs="1" maxOccurs="1"	/>
+		<element type = "CatchesClause" minOccurs="1" maxOccurs="*"	/>
+	</group>
+	<group order="seq">
+		<element type = "Block"	 		minOccurs="1" maxOccurs="1"	/>
+		<element type = "CatchesClause" minOccurs="0" maxOccurs="*"	/>
+	   	<element type = "Finally"		minOccurs="1" maxOccurs="1"	/>
+	</group>
+</ElementType>
+
+<!-- represents of CatchesClause:  "CATCH (" FormalParameter ")" Block -->
+<ElementType	name		= "CatchesClause" content="eltOnly" >
+<!--	<element type = "FormalParameter" minOccurs="1" maxOccurs="1"	/> -->
+<!-- IMPORTANT!!!! the line above is the original line. need to remove from remark when we'll know what parameters -->
+<!-- we need. the CatchesClause::CreateXML was changed temporary too. -->
+	<element type = "FormalParameter" minOccurs="0" maxOccurs="1"	/>
+	<element type = "Block"	minOccurs="1" maxOccurs="1"			/>
+</ElementType>
+
+<!-- represents of Finally:  "FINALLY" Block -->
+<ElementType	name		= "Finally" content="eltOnly" >
+	<element type = "Block" minOccurs="1" maxOccurs="1"	/>
+</ElementType>
+
+
+<!-- Expressions -->
+<!-- =========== -->
+
+<!-- represents of Primary:  PrimaryNoNewArray or ArrayCreationExpression -->
+<ElementType	name		= "Primary" order="one" content="eltOnly" >
+	<element type = "PrimaryNoNewArray"			/>
+	<element type = "ArrayCreationExpression"	/>
+</ElementType>
+
+<!-- is ".class" or ".type" -->
+<AttributeType 	name 		= "IsClass"
+			 	dt:type 	= "boolean"
+				required 	= "no"/>
+
+<!-- represents of PrimaryNoNewArray:  Literal or "THIS" or "(" Expression ")" or ClassInstanceCreationExpression or FieldAccess or  -->
+<!-- 								   MethodInvocation or ArrayAccess or PrimitiveType ".CLASS" or (VOID, DOT & CLASS) or    -->
+<!-- 								   ArrayType ".CLASS" or Name ".CLASS" or Name ".TYPE"            -->
+<ElementType	name		= "PrimaryNoNewArray" order="one" content="eltOnly" >
+	<attribute type = "IsClass"							/>
+	<element type = "Literal"							/>
+	<element type = "Expression"						/>
+	<element type = "ClassInstanceCreationExpression"	/>
+	<element type = "FieldAccess"						/>
+	<element type = "MethodInvocation"					/>
+	<element type = "ArrayAccess"						/>
+	<element type = "RefModAccess"          />
+	<element type = "ArrayRefModAccess"          />
+	<element type = "PrimitiveType"						/>
+	<element type = "ArrayType"							/>
+ 	<element type = "Type"								/>
+ 	<element type = "Name"								/>
+</ElementType>
+
+<!-- represents of ClassInstanceCreationExpression: one of the two groups  -->
+<ElementType	name		= "ClassInstanceCreationExpression" order="seq" content="eltOnly" >
+	<element type = "Name"					minOccurs="1" maxOccurs="1"	/>
+	<element type = "Primary"				minOccurs="0" maxOccurs="1"	/>
+ 	<element type = "Expression"			minOccurs="0" maxOccurs="*"	/>
+	<element type = "ClassBodyDeclaration"	minOccurs="0" maxOccurs="1"	/>
+</ElementType>
+
+<!-- represents of ArrayCreationExpression:  one of the groups below -->
+<ElementType	name		= "ArrayCreationExpression" order="one" content="eltOnly" >
+  <group order="seq">
+	<element type = "PrimitiveType"	 minOccurs="1" maxOccurs="1" />
+	<element type = "DimExpr" minOccurs="1" maxOccurs="*" />
+ 	<element type = "Dims" minOccurs="0" maxOccurs="*"	/>
+  </group>
+  <group order="seq">
+	<element type = "ClassOrInterfaceName"	minOccurs="1" maxOccurs="1" />
+	<element type = "DimExpr" minOccurs="1" maxOccurs="*" />
+ 	<element type = "Dims" minOccurs="0" maxOccurs="*"	/>
+  </group>
+  <group order="seq">
+	<element type = "PrimitiveType"	 minOccurs="1" maxOccurs="1" />
+ 	<element type = "Dims" minOccurs="1" maxOccurs="*"	/>
+ 	<element type = "ArrayInitializer" 	minOccurs="1" maxOccurs="1"	/>
+  </group>
+  <group order="seq">
+	<element type = "ClassOrInterfaceName"	minOccurs="1" maxOccurs="1" />
+ 	<element type = "Dims" minOccurs="1" maxOccurs="*"	/>
+ 	<element type = "ArrayInitializer" 	minOccurs="1" maxOccurs="1"	/>
+  </group>
+</ElementType>
+
+<!-- represents of DimExpr: "[" Expression "]" -->
+<ElementType	name		= "DimExpr" content="eltOnly" >
+	<element type = "Expression"	/>
+</ElementType>
+
+<!-- represents of FieldAccess: [ "SUPER" | Primary | Name ".super" ]  + "." + Name(IDENTIFIER) -->
+<ElementType	name		= "FieldAccess" content="eltOnly" order="one">
+	<group order="one">
+		<element type = "Primary"	/>
+		<element type = "Identifier"	/>
+    </group>
+	<group order="one">
+		<element type = "Name"		/>
+		<element type = "Identifier"	/>
+    </group>
+	<group order="one">
+		<element type = "Identifier"	/>
+    </group>
+</ElementType>
+
+<!-- represents of MethodInvocation: [Name | Primary.Name | super.Name | Name.super.Name ]  + "(" + ArgumentList(optional) + "))  -->
+<!-- the two names represent the first paragraph and the last paragraph in perform through -->
+<ElementType	name		= "MethodInvocation" content="eltOnly"  order="one">
+	<attribute type = "PerfThroughIndex" />
+<!--	<group order="seq">														-->
+<!--		<element type = "Name"	minOccurs="1" maxOccurs="1"		/>			-->
+<!--		<element type = "Name"	minOccurs="1" maxOccurs="1"		/>			-->
+<!--        <element type = "PT_Index" 	minOccurs="0" maxOccurs="*"	/>          -->
+<!--		<element type = "Identifier"	minOccurs="0" maxOccurs="1"		/>	-->
+<!--		<element type = "Expression" minOccurs="0" maxOccurs="*"	/>		-->
+<!--	</group>																-->
+	<group order="seq">
+		<element type = "Name"	minOccurs="1" maxOccurs="1"		/>
+		<element type = "Thru"	minOccurs="0" maxOccurs="1"		/>
+		<element type = "PT_Index" 	minOccurs="0" maxOccurs="*"	/>
+	    <element type = "StopRun" minOccurs="0" maxOccurs="1"/>
+		<element type = "Identifier"	minOccurs="0" maxOccurs="1"		/>
+		<element type = "Expression" minOccurs="0" maxOccurs="*"	/>
+		<element type = "Range" minOccurs="1" maxOccurs="1"	/>
+	</group>
+	<group order="seq">
+		<element type = "Primary"	minOccurs="0" maxOccurs="1"		/>
+		<element type = "PT_Index" 	minOccurs="0" maxOccurs="*"	/>
+		<element type = "Identifier"	minOccurs="1" maxOccurs="1"		/>
+		<element type = "Expression" minOccurs="0" maxOccurs="*"	/>
+	</group>
+</ElementType>
+<ElementType name="Range" content="eltOnly">
+	<element type = "Par" minOccurs="0" maxOccurs="*"/>
+</ElementType>
+
+<!-- represents of ArrayAccess: Name or PrimaryNoNewArray + "(" Expression ")" -->
+<ElementType	name		= "ArrayAccess" content="eltOnly" order="seq">
+	<group order="one">
+		<element type = "Name"			minOccurs="1" maxOccurs="1"		/>
+		<element type = "Expression"	minOccurs="1" maxOccurs="1"		/>
+	</group>
+	<element type = "ID"	minOccurs="0" maxOccurs="1"		/>
+	<group order="one">
+		<element type = "PrimaryNoNewArray"		minOccurs="1" maxOccurs="1"	/>
+		<element type = "Expression"			minOccurs="1" maxOccurs="1"	/>
+		<element type = "DimExpr"			minOccurs="1" maxOccurs="*"	/>
+	</group>
+</ElementType>
+
+<!-- represents of RefModAccess: Name or PrimaryNoNewArray + "(" Expression ")" -->
+<ElementType	name		= "RefModAccess" content="eltOnly" order="seq">
+	<element type = "Name"			minOccurs="1" maxOccurs="1"		/>
+	<element type = "ID"	minOccurs="1" maxOccurs="1"		/>
+  <element type = "LeftExpression" minOccurs="1" maxOccurs="1"	/>
+	<element type = "RightExpression" minOccurs="0" maxOccurs="1"	/>	
+</ElementType>
+
+
+<!-- represents of ArrayRefModAccess: Name or PrimaryNoNewArray + "(" Expression ")" -->
+<ElementType	name		= "ArrayRefModAccess" content="eltOnly" order="seq">
+	<element type = "Expression"			minOccurs="1" maxOccurs="1"		/>
+	<element type = "LeftExpression" minOccurs="1" maxOccurs="1"	/>
+	<element type = "RightExpression" minOccurs="0" maxOccurs="1"	/>	
+</ElementType>
+
+
+
+<AttributeType 	name 		= "UnaryExprType"
+			 	dt:type 	= "enumeration"	
+				dt:values	= "PLUS MINUS NOT COMP"
+				required 	= "no"/>				
+
+<!-- represents of UnaryExpression: PreincrementExpression or PredecrementExpression or "+"+UnaryExpression or "-"+UnaryExpression or UnaryExpressionNotPlusMinus -->
+<ElementType	name		= "UnaryExpression" order="one" content="eltOnly" >
+	<attribute type = "UnaryExprType" />
+	<element type = "PreincrementExpression"		minOccurs="1" maxOccurs="1" />
+ 	<element type = "PredecrementExpression"		minOccurs="1" maxOccurs="1" />
+ 	<element type = "PostincrementExpression"		minOccurs="1" maxOccurs="1" />
+ 	<element type = "PostdecrementExpression"		minOccurs="1" maxOccurs="1" />
+	<element type = "UnaryExpression"				minOccurs="1" maxOccurs="1" />
+	<element type = "CastExpression"				minOccurs="1" maxOccurs="1" />
+	<element type = "Expression"					minOccurs="1" maxOccurs="1" />
+</ElementType>
+
+<!-- represents of PostincrementExpression: PostfixExpression + "++" -->
+<ElementType	name		= "PostincrementExpression" order="one" content="eltOnly" >
+	<element type = "UnaryExpression"		minOccurs="1" maxOccurs="1" />
+	<element type = "Assignment"			minOccurs="1" maxOccurs="1" 	/>
+	<element type = "Name"					minOccurs="1" maxOccurs="1" 	/>
+</ElementType>
+
+<!-- represents of PostdecrementExpression: PostfixExpression + "/-/-" -->
+<ElementType	name		= "PostdecrementExpression" order="one" content="eltOnly" >
+	<element type = "UnaryExpression"		minOccurs="1" maxOccurs="1" />
+	<element type = "Assignment"			minOccurs="1" maxOccurs="1" 	/>
+	<element type = "Name"					minOccurs="1" maxOccurs="1" 	/>
+</ElementType>
+
+<!-- represents of PreincrementExpression: "++" UnaryExpression -->
+<ElementType	name		= "PreincrementExpression" order="one" content="eltOnly" >
+	<element type = "UnaryExpression"		minOccurs="1" maxOccurs="1" />
+	<element type = "Assignment"			minOccurs="1" maxOccurs="1" 	/>
+	<element type = "Name"					minOccurs="1" maxOccurs="1" 	/>
+</ElementType>
+
+<!-- represents of PredecrementExpression: "/-/-" UnaryExpression -->
+<ElementType	name		= "PredecrementExpression" order="one" content="eltOnly" >
+	<element type = "UnaryExpression"		minOccurs="1" maxOccurs="1" />
+	<element type = "Assignment"			minOccurs="1" maxOccurs="1" 	/>
+	<element type = "Name"					minOccurs="1" maxOccurs="1" 	/>
+</ElementType>
+
+<!-- represents of CastExpression: one of the groups below -->
+<ElementType	name		= "CastExpression" order="one" content="eltOnly" >
+	<group order="seq">
+		<element type = "PrimitiveType"		minOccurs="1" maxOccurs="1" 	/>
+		<element type = "Dims"				minOccurs="0" maxOccurs="*"		/>
+		<element type = "UnaryExpression"	minOccurs="1" maxOccurs="1" 	/>
+	</group>
+	<group order="seq">
+		<element type = "Expression"		minOccurs="1" maxOccurs="1" 	/>
+		<element type = "UnaryExpression"	minOccurs="1" maxOccurs="1" 	/>
+	</group>
+	<group order="seq">
+		<element type = "Name"				minOccurs="1" maxOccurs="1" 	/>
+		<element type = "Dims"				minOccurs="0" maxOccurs="*"		/>
+		<element type = "UnaryExpression"	minOccurs="1" maxOccurs="1" 	/>
+	</group>
+</ElementType>
+
+<AttributeType 	name 		= "ExprType"
+			 	dt:type 	= "enumeration"	
+			 	dt:values   = "EQ NEQ LT GT LE GE OR AND XOR LSHIFT RSHIFT URSHIFT PLUS MINUS MULT DIV MOD POW QUEST ASN_PLUS ASN_PLUS_G ASN_MINUS ASN_MINUS_G ASN_MULT ASN_DIV ASN_MOD EQ_PRMTV LT_PRMTV"
+				required 	= "yes"/>
+
+<!-- represents of ConditionalExpression: one of the groups below    -->
+<ElementType	name		= "ConditionalExpression" order="seq" content="eltOnly" >
+   	<attribute type = "ExprType" />
+	<element type = "LeftExpression" minOccurs="1" maxOccurs="1"	/>
+	<element type = "RightExpression" minOccurs="1" maxOccurs="1"	/>
+	<element type = "Expression"	minOccurs="0" maxOccurs="1"/> <!-- in case of: (expr)?(leftexpr):(rightexpr);  -->
+</ElementType>
+
+<AttributeType 	name 		= "AssignmentOperatorAttr"
+			 	dt:type 	= "enumeration"		
+				dt:values 	= "EQ MULTEQ DIVEQ MODEQ PLUSEQ MINUSEQ LSHIFTEQ RSHIFTEQ URSHIFTEQ ANDEQ XOREQ OREQ EQ_PRMTV PLUSEQ_PRMTV"
+				required 	= "no"/>				
+
+<AttributeType 	name 		= "SizeErrAttr"
+			 	dt:type 	= "enumeration"		
+				dt:values 	= "NONE OnSizeError"
+				required 	= "no"/>
+
+<!-- represents of Assignment: LeftHandSide AssignmentOperator AssignmentExpression -->
+<ElementType	name		= "Assignment" content="eltOnly" >
+	<attribute type = "AssignmentOperatorAttr"	/> 
+	<attribute type = "SizeErrAttr"	/> 
+	<element type = "LeftHandSide"			minOccurs="1" maxOccurs="1" />
+	<element type = "Expression"	minOccurs="1" maxOccurs="1" />
+</ElementType>
+				
+<!-- represents of LeftHandSide: Name or FieldAccess or ArrayAccess -->
+<ElementType	name		= "LeftHandSide" order="one" content="eltOnly" >
+   <group order="seq">
+	<element type = "Name"				/>
+	<element type = "ID" minOccurs="0" maxOccurs="1"/>
+   </group>
+	<element type = "FieldAccess"		/>
+	<element type = "Expression"		/>
+</ElementType>
+
+<!-- this attribute is for ifStatement's condition	-->
+<AttributeType 	name 		= "QueryTypeAttr"
+			 	dt:type 	= "enumeration"		
+				dt:values 	= "numeric alphabetic alphabetic_lower alphabetic_upper
+				               not_numeric not_alphabetic not_alphabetic_lower not_alphabetic_upper"
+				required 	= "no"/>				
+				
+<!-- represents of Expression: AssignmentExpression -->
+<ElementType	name		= "Expression" order="one" content="eltOnly">
+	<attribute type = "QueryTypeAttr"		/>
+	<element type = "ClassInstanceCreationExpression"/>
+	<element type = "ArrayCreationExpression"/>
+	<element type = "ArrayAccess"/>
+	<element type = "RefModAccess"          />
+	<element type = "ArrayRefModAccess"          />
+	<element type = "MethodInvocation"					/>
+	<element type = "ConditionalExpression"	/>
+	<element type = "UnaryExpression"		/>
+	<element type = "Assignment"			/>
+<group order="seq">
+	<element type = "Name"					/>
+	<element type = "ID" minOccurs="0" maxOccurs="1"/>
+</group>
+</ElementType>
+	
+<!-- represents of Expression: AssignmentExpression -->
+<ElementType	name		= "LeftExpression" order="one" content="eltOnly">
+	<attribute type = "QueryTypeAttr"		/>
+	<element type = "ClassInstanceCreationExpression"/>
+	<element type = "ArrayCreationExpression"/>
+	<element type = "MethodInvocation"					/>
+	<element type = "ConditionalExpression"	/>
+	<element type = "UnaryExpression"		/>
+	<element type = "Assignment"			/>
+<group order="seq">
+	<element type = "Name"					/>
+	<element type = "ID" minOccurs="0" maxOccurs="1"/>
+</group>
+	<element type = "ArrayAccess"		/>
+	<element type = "RefModAccess"          />
+	<element type = "ArrayRefModAccess"          />
+</ElementType>
+	
+<!-- represents of Expression: AssignmentExpression -->
+<ElementType	name		= "RightExpression" order="one" content="eltOnly">
+	<attribute type = "QueryTypeAttr"		/>
+	<element type = "ClassInstanceCreationExpression"/>
+	<element type = "ArrayCreationExpression"/>
+	<element type = "MethodInvocation"					/>
+	<element type = "ConditionalExpression"	/>
+	<element type = "UnaryExpression"		/>
+	<element type = "Assignment"			/>
+<group order="seq">
+	<element type = "Name"					/>
+	<element type = "ID" minOccurs="0" maxOccurs="1"/>
+</group>
+	<element type = "ArrayAccess"		/>
+	<element type = "RefModAccess"          />
+	<element type = "ArrayRefModAccess"          />
+</ElementType>
+	
+	
+</Schema>

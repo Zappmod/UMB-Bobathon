@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── IBM Fonts ─────────────────────────────── */
+* {
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+}
+
+code, pre, .font-mono {
+  font-family: 'IBM Plex Mono', Menlo, monospace;
+}
+
+/* ── Callout Blocks ─────────────────────────── */
+.callout {
+  border-left: 4px solid;
+  border-radius: 4px;
+  padding: 12px 16px;
+  margin: 20px 0;
+}
+
+.callout strong {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+
+.callout-tip {
+  border-color: #42be65;
+  background-color: #f0faf4;
+  color: #1a4731;
+}
+
+.callout-warning {
+  border-color: #f1c21b;
+  background-color: #fdf8e1;
+  color: #4a3800;
+}
+
+.callout-important {
+  border-color: #da1e28;
+  background-color: #fff0f0;
+  color: #520408;
+}
+
+/* ── ACTION Blocks ──────────────────────────── */
+.action-block {
+  border-left: 4px solid #0f62fe;
+  background-color: #edf5ff;
+  border-radius: 4px;
+  padding: 10px 16px;
+  margin: 16px 0;
+  color: #001d6c;
+}
+
+.action-block .action-label {
+  font-weight: 700;
+  color: #0f62fe;
+}
+
+/* ── Code Blocks ─────────────────────────────── */
+.code-block-wrapper {
+  position: relative;
+  margin: 20px 0;
+}
+
+.code-block-wrapper pre {
+  background-color: #1e1e2e;
+  color: #cdd6f4;
+  border-radius: 8px;
+  padding: 16px 20px;
+  overflow-x: auto;
+  font-family: 'IBM Plex Mono', Menlo, monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: #313244;
+  color: #cdd6f4;
+  border: none;
+  border-radius: 4px;
+  padding: 3px 10px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  font-family: 'IBM Plex Sans', sans-serif;
+  transition: background 0.15s;
+}
+
+.copy-btn:hover {
+  background: #45475a;
+}
+
+/* ── Mermaid ──────────────────────────────────── */
+.mermaid-wrapper {
+  display: flex;
+  justify-content: center;
+  background: #f8f8fc;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 24px;
+  margin: 20px 0;
+  overflow-x: auto;
+}
+
+/* ── Prose Overrides ─────────────────────────── */
+.prose h1 { font-size: 1.75rem; font-weight: 700; color: #161616; margin-top: 2rem; }
+.prose h2 { font-size: 1.35rem; font-weight: 600; color: #161616; margin-top: 2rem; border-bottom: 1px solid #e0e0e0; padding-bottom: 8px; }
+.prose h3 { font-size: 1.1rem; font-weight: 600; color: #161616; margin-top: 1.5rem; }
+.prose h4 { font-size: 1rem; font-weight: 600; color: #393939; margin-top: 1.25rem; }
+.prose p { color: #393939; line-height: 1.7; }
+.prose a { color: #0f62fe; text-decoration: underline; }
+.prose img { border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,0.10); border: 1px solid #e0e0e0; max-width: 100%; margin: 1.25rem 0; }
+.prose table { font-size: 0.9rem; }
+.prose th { background: #f4f4f8; font-weight: 600; }
+.prose blockquote { border-left: 4px solid #e0e0e0; color: #6f6f6f; font-style: normal; }

@@ -1,0 +1,60 @@
+{
+  "title": "Bob Premium for Z",
+  "subtitle": "Bobathon Guide",
+  "labs": [
+    {
+      "id": "lab-setup",
+      "title": "Lab 1: Getting Started",
+      "description": "Set up Bob, scan your workspace, initialize Agent.md, and generate a Data Dictionary.",
+      "file": "lab-setup.md",
+      "duration": "20 min",
+      "difficulty": "Beginner",
+      "icon": "🚀"
+    },
+    {
+      "id": "technical-design",
+      "title": "Lab 2: Technical Design Document",
+      "description": "Generate a comprehensive technical design document from your COBOL codebase with Mermaid diagrams.",
+      "file": "technical-design.md",
+      "duration": "10–15 min",
+      "difficulty": "Beginner",
+      "icon": "📐"
+    },
+    {
+      "id": "impact-analysis",
+      "title": "Lab 3: Impact Analysis",
+      "description": "Analyze the ripple effects of a field change across your entire mainframe application landscape.",
+      "file": "impact-analysis.md",
+      "duration": "30 min",
+      "difficulty": "Beginner",
+      "icon": "🔍"
+    },
+    {
+      "id": "refactoring",
+      "title": "Lab 4: Refactoring & Service Extraction",
+      "description": "Identify business rules in monolithic COBOL programs, check dependencies, and extract business services for modernization.",
+      "file": "refactoring.md",
+      "duration": "60 min",
+      "difficulty": "Intermediate",
+      "icon": "🔧"
+    },
+    {
+      "id": "spec-driven-code-gen",
+      "title": "Lab 5: Spec-Driven Code Generation",
+      "description": "Use a program specification to generate a complete CICS COBOL program and verify it against requirements.",
+      "file": "spec-driven-code-gen.md",
+      "duration": "45 min",
+      "difficulty": "Intermediate",
+      "icon": "⚙️"
+    },
+    {
+      "id": "ui-modernization",
+      "title": "Lab 6: UI Modernization",
+      "description": "Transform CICS green screen applications into modern web interfaces with REST APIs.",
+      "file": "ui-modernization.md",
+      "duration": "45 min",
+      "difficulty": "Intermediate",
+      "icon": "🖥️"
+    }
+  ]
+}

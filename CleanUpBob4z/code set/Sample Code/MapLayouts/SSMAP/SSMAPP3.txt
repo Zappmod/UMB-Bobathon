@@ -1,0 +1,24 @@
+SSP3       General Insurance House Policy Menu                                  
+                                                                                
+                                                                                
+       1. Policy Inquiry     Policy Number       __________                     
+       2. Policy Add         Cust Number         __________                     
+       3. Policy Delete      Issue date                       (yyyy-mm-dd)      
+       4. Policy Update      Expiry date                      (yyyy-mm-dd)      
+                             Property Type                                      
+                             Bedrooms                                           
+                             House Value                                        
+                             House Name                                         
+                             House Number                                       
+                             Postcode                                           
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+       Select Option                                                            
+                                                                                
+                                                                                

@@ -1,0 +1,24 @@
+SSP2       General Insurance Endowment Policy Menu                              
+                                                                                
+                                                                                
+       1. Policy Inquiry     Policy Number       __________                     
+       2. Policy Add         Cust Number         __________                     
+       3. Policy Delete      Issue date                       (yyyy-mm-dd)      
+       4. Policy Update      Expiry date                      (yyyy-mm-dd)      
+                             Fund Name                                          
+                             Term                                               
+                             Sum Assured                                        
+                             Life Assured                                       
+                             With Profits                                       
+                             Equities                                           
+                             Managed Funds                                      
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+       Select Option                                                            
+                                                                                
+                                                                                

@@ -1,0 +1,24 @@
+SSP4       General Insurance Commercial Policy Menu                             
+                                                                                
+                                                                                
+       1. Policy Inquiry     Policy Number       __________                     
+       2. Policy Add         Cust Number         __________                     
+       3. Policy Delete      Start date                       (yyyy-mm-dd)      
+                             Expiry date                      (yyyy-mm-dd)      
+                             Address                                            
+                             Postcode                                           
+                             Latitude/Longitude                                 
+                             Customer Name                                      
+                             Property Type                                      
+                             Fire Peril/Prem     ____  ________                 
+                             Crime Peril/Prem    ____  ________                 
+                             Flood Peril/Prem    ____  ________                 
+                             Weather Peril/Prem  ____  ________                 
+                             Status                                             
+                             Reject Reason                                      
+                                                                                
+                                                                                
+                                                                                
+       Select Option                                                            
+                                                                                
+                                                                                

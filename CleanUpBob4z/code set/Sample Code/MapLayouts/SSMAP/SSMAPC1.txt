@@ -1,0 +1,24 @@
+SSC1       General Insurance Customer Menu                                      
+                                                                                
+                                                                                
+       1. Cust Inquiry       Cust Number         __________                     
+       2. Cust Add           Cust Name :First                                   
+                                       :Last                                    
+       4. Cust Update        DOB                              (yyyy-mm-dd)      
+                             House Name                                         
+                             House Number                                       
+                             Postcode                                           
+                             Phone: Home                                        
+                             Phone: Mob                                         
+                             Email  Addr                                        
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+       Select Option                                                            
+                                                                                
+                                                                                

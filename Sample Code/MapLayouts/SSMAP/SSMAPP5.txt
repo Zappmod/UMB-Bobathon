@@ -1,0 +1,24 @@
+SSP5       General Insurance Policy Claim Menu                                  
+                                                                                
+                                                                                
+       1. Claim Inquiry      Claim Number        __________                     
+       2. Claim Add          Policy Number       __________                     
+                             Customer Number     __________                     
+                             Claim date                       (yyyy-mm-dd)      
+                             Paid                __________                     
+                             Value               __________                     
+                             Cause                                              
+                             Observation                                        
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+       Select Option                                                            
+                                                                                
+                                                                                

@@ -1,0 +1,24 @@
+SSP1       General Insurance Motor Policy Menu                                  
+                                                                                
+                                                                                
+       1. Policy Inquiry     Policy Number       __________                     
+       2. Policy Add         Cust Number         __________                     
+       3. Policy Delete      Issue date                       (yyyy-mm-dd)      
+       4. Policy Update      Expiry date                      (yyyy-mm-dd)      
+                             Car Make                                           
+                             Car Model                                          
+                             Car Value                                          
+                             Registration                                       
+                             Car Colour                                         
+                             CC                                                 
+                             Manufacture Date                 (yyyy-mm-dd)      
+                             No. of Accidents                                   
+                             Policy Premium                                     
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+       Select Option                                                            
+                                                                                
+                                                                                

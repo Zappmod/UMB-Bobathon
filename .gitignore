@@ -1,0 +1,25 @@
+.DS_Store
+**/.DS_Store
+
+# VS Code
+.vscode/
+
+
+# Logs
+*.log
+
+# Environment variables / secrets
+.env
+.env.*
+
+
+# Python (if you're using any scripts)
+__pycache__/
+*.pyc
+
+# Bob Z Extension - Local settings and generated files
+.bobz/
+
+# PagesSite build artifacts
+PagesSite/node_modules/
+PagesSite/dist/
