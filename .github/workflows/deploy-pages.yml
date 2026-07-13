@@ -3,9 +3,6 @@ name: Deploy PagesSite to GitHub Pages
 on:
   push:
     branches: [main]
-    paths:
-      - 'PagesSite/**'
-      - '.github/workflows/deploy-pages.yml'
   workflow_dispatch:
 
 permissions:
@@ -40,13 +37,9 @@ jobs:
           VITE_PASSWORD_HASH: ${{ secrets.VITE_PASSWORD_HASH }}
 
       - name: Deploy to gh-pages
-        working-directory: PagesSite/dist
-        run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-          git init
-          git checkout -b gh-pages
-          git add -A
-          git commit -m "Deploy to gh-pages [skip ci]"
-          git remote add origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@${GITHUB_SERVER_URL#https://}/Zappmod/UMB-Bobathon.git"
-          git push -f origin gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: PagesSite/dist
+          publish_branch: gh-pages
+          force_orphan: true
