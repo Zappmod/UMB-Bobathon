@@ -1,4 +1,4 @@
-# BOB-for-Z-Bobathon
+# UMB-Bobathon
 
 This repo contains the sample application and interactive lab guide site for the IBM Bob Premium for Z Bobathon.
 
@@ -17,9 +17,9 @@ This repo contains the sample application and interactive lab guide site for the
 
 The interactive lab guide is hosted on GitHub Pages and deploys automatically on every push to `main`.
 
-**Live site:** [https://pages.github.ibm.com/CE4S/BOB-for-Z-Bobathon/](https://pages.github.ibm.com/CE4S/BOB-for-Z-Bobathon/)
+**Live site:** [https://zappmod.github.io/UMB-Bobathon/](https://zappmod.github.io/UMB-Bobathon/)
 
-> **Note:** After the first push, you must enable GitHub Pages in the repo settings — see the setup steps below.
+> **Note:** After the first push to this repo, you must enable GitHub Pages in the repo settings — see the setup steps below.
 
 ---
 
@@ -61,7 +61,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:5173/CE4S/BOB-for-Z-Bobathon/](http://localhost:5173/CE4S/BOB-for-Z-Bobathon/)
+Open [http://localhost:5173/UMB-Bobathon/](http://localhost:5173/UMB-Bobathon/)
 
 ---
 
